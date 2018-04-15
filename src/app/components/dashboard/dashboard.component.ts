@@ -4,6 +4,7 @@ import { Board } from '../../Board';
 import { BoardsService } from '../../boards.service';
 
 import { AuthService } from '../../core/auth.service';
+import { User } from '../../User';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,8 @@ export class DashboardComponent implements OnInit {
 
   boards: Board[];
   nr: string;
+  user: User;
+  uid: any
  
 
   constructor( 
@@ -21,24 +24,20 @@ export class DashboardComponent implements OnInit {
     public auth: AuthService 
     ) { }
   
-  ngOnInit() {    
-    
+  ngOnInit() {   
+      this.getBoards(this.auth.userId);      
   }
 
-  getUid(uid){
-    this.nr = uid;
-    this.getBoards(uid);  
-  }
  
   getBoards(uid){
     this.boardsService.getBoards(uid)
       .subscribe(boards => this.boards = boards);
   }
 
-  addBoard(title: string, nr: string): void {
+  addBoard(title: string, color: string, nr: string): void {
     title = title.trim();
     if (!title) { return; }
-    this.boardsService.addBoard({title, nr} as Board);
+    this.boardsService.addBoard({title, color, nr} as Board);
   }
 
   deleteBoard(board: Board, id: string): void {

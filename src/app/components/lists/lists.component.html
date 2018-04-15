@@ -27,12 +27,11 @@
     <div class="row col s12">
       <div droppable (onDrop)="onItemDrop($event, this.list.id)" *ngFor="let list of lists" class="card listcard col s2">
           <h5>{{list.title}} <span (click)="deleteList(list, this.list.id)" class="right red-text deleteX">X</span></h5>
-
+          
           <div draggable *ngFor="let note of notes" [dragData]="note.id">
             <div *ngIf="note.nr == list.id" class="card noteCard">{{note.text}}  <span (click)="deleteNote(note, this.note.id)" class="right red-text deleteX">X</span></div>
 
           </div>
-
           <input type="text" placeholder="Add a new note" #noteText>
           <button (click)="addNote(noteText.value, list.id); noteText.value=''" class="btn listbutton">Add</button>   
           

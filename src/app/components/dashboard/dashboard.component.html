@@ -18,32 +18,34 @@
     }
 </style> 
 
-<div *ngIf="auth.user | async; then authenticated else guest">
-  <!-- template will replace this div -->
-</div>
-<ng-template #guest>
-    <div class="container">
-        <h3 class="center-align">Howdy, GUEST</h3>
-        <h5 class="center-align">Login or register to get started...</h5>
-        
-        <button class="btn indigo btnAdd" (click)="auth.googleLogin()">
-            <i class="fa fa-google"></i> Login / Register With Google
-        </button>    
-      </div>  
-</ng-template>
-
-<ng-template #authenticated>
     <div *ngIf="auth.user | async as user">
-        <div class="container" (create)="getUid(user.uid)">
+        <div class="container row">
             
-            <h3 class="center-align">Welcome {{user.displayName}}</h3>
+            <h5 class="center-align">Welcome {{user.displayName}}</h5>
             <p class="center-align">Here you can create boards, then you can create lists and inside these
-                lists you can create notes. The notes can be dropped and draged from on list into the other.
-              </p>       
+                lists you can create notes. The notes can be dropped and draged from one list into the other.
+            </p>       
             
-            <input class="col s8" type="text" placeholder="What is the title of your new board?" #boardTitle>
-            <button class="btn blue" (click)="addBoard(boardTitle.value, this.user.uid); boardTitle.value=''">Add a new Board</button>
-            <button class="btn indigo" (click)="getUid(user.uid)">Show my boards</button>
+ 
+                <input class="col s7 left" type="text" placeholder="What is the title of your new board?" #boardTitle>
+                <select class="browser-default validate col s4 right" #boardColor>
+                    <option value="" disabled selected>Add a color</option>
+                    <option value="red">Red</option>
+                    <option value="pink">Pink</option>
+                    <option value="cyan">Cyan</option>
+                    <option value="teal">Teal</option>
+                    <option value="blue">Blue</option>
+                    <option value="indigo">Indigo</option>
+                    <option value="purple">Purple</option>
+                    <option value="green">Green</option>
+                    <option value="lime">Lime</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="amber">Amber</option>
+                    <option value="orange">Orange</option>
+                    <option value="gray">Gray</option>
+                </select>
+
+            <button class="btn blue" (click)="addBoard(boardTitle.value, boardColor.value, this.user.uid); boardTitle.value=''; boardColor.value=''">Add a new Board</button>
           
             <div class="row col s12"> 
               <div *ngFor="let board of boards" class="card {{board.color}} col s3">
@@ -56,6 +58,5 @@
 
           </div>
     </div>
-</ng-template>
 
 

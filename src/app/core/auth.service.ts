@@ -16,6 +16,7 @@ export class AuthService {
   userDoc: AngularFirestoreDocument<User>;
   user: Observable<User>;
   uid: Observable<any>;
+  userId: string;
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
@@ -25,6 +26,7 @@ export class AuthService {
       this.user = this.afAuth.authState
         .switchMap(user => {
           if (user) {
+            this.userId = user.uid;
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
           } else {
             return Observable.of(null)
@@ -32,6 +34,7 @@ export class AuthService {
         })
   }
 
+ 
 
 
   googleLogin() {
