@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }    from '@angular/forms';
+
 
 import { NgDragDropModule } from 'ng-drag-drop';
 import { MaterializeModule } from 'angular2-materialize';
@@ -18,6 +20,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
 import { BoardsService } from './boards.service';
 import { CoreModule } from './core/core.module';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -28,11 +31,13 @@ import { CoreModule } from './core/core.module';
     ListsComponent,
     LoginComponent,
     RegisterComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
     MaterializeModule,
+    FormsModule,
     AppRoutingModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
